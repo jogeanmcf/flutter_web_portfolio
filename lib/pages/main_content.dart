@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_web_portfolio/widgets/certificates.dart';
+import 'package:unicons/unicons.dart';
 
 import '../widgets/about_me.dart';
 import '../widgets/projects.dart';
@@ -13,23 +15,24 @@ class MainContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          //TODO: mudar isso e ajustar de acrto com a usabilidade flutterWeb + (possivelmente) usando GoRouter
-          // automaticallyImplyLeading: false
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.transparent,
+        //   elevation: 0,
+        //   //TODO: mudar isso e ajustar de acrto com a usabilidade flutterWeb + (possivelmente) usando GoRouter
+        //   // automaticallyImplyLeading: false
+        // ),
         body: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              color: Colors.grey[200],
-              width: 360,
-              child: LeftSideColumn(),
-            ),
-            Expanded(child: MainBody())
-          ],
-        ));
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 24),
+          color: Colors.grey[200],
+          width: 360,
+          child: LeftSideColumn(),
+        ),
+        Expanded(child: MainBody())
+      ],
+    ));
   }
 }
 
@@ -75,23 +78,47 @@ class LeftSideColumn extends StatelessWidget {
           ),
           const Divider(),
           const ListTile(
-            leading: IconButton(icon: Icon(Icons.inbox), onPressed: null),
-            title: Text('+55 (61) 99325-4151'),
+            leading: IconButton(icon: Icon(UniconsLine.at), onPressed: null),
+            title: Text('jogeanmcf@gmail.com'),
             trailing: Icon(Icons.copy),
           ),
           const ListTile(
-              leading: Icon(Icons.email),
-              title: Text('jogeanmcf@gmail.com'),
-              trailing: Icon(Icons.copy)),
-          const ListTile(
-              leading: Icon(Icons.phone),
+              leading: Icon(UniconsLine.phone),
               title: Text('+55 (61) 99325-4151'),
               trailing: Icon(Icons.copy)),
-          const ListTile(
-              leading: Icon(Icons.link),
-              title: Text('+55 (61) 99325-4151'),
-              trailing: Icon(Icons.copy)),
+          SizedBox(height: 100),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SocialIcons(),
+              InkWell(child: Icon(UniconsLine.github)),
+              InkWell(child: Icon(UniconsLine.twitter))
+            ],
+          )
         ],
+      ),
+    );
+  }
+}
+
+class SocialIcons extends StatefulWidget {
+  const SocialIcons({super.key});
+
+  @override
+  State<SocialIcons> createState() => _SocialIconsState();
+}
+
+class _SocialIconsState extends State<SocialIcons> {
+  bool isHovered = false;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: InkWell(
+        child: Icon(
+          UniconsLine.linkedin,
+          color: isHovered ? Colors.blue : Colors.grey[600],
+        ),
+        onHover: (value) => {isHovered = value},
       ),
     );
   }
@@ -116,29 +143,54 @@ class _MainBodyState extends State<MainBody>
 
   @override
   Widget build(BuildContext context) {
+    print(tabController.index);
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   automaticallyImplyLeading: false,
-      // ),
       body: Column(
         children: [
           Container(
             height: 50,
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(color: Colors.grey, offset: Offset(0.1, 0.1))
+            ]),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  child: Text('Sobre mim'),
-                  onPressed: () => {tabController.index = 0},
-                  style: ButtonStyle(),
-                ),
-                ElevatedButton(
-                    child: Text('Habilidades'),
-                    onPressed: () => {tabController.index = 1}),
-                ElevatedButton(
+                TextButton(
+                    child: Text('Sobre mim'),
+                    onPressed: () {
+                      tabController.index = 0;
+                      setState(() {});
+                    },
+                    style: TextButton.styleFrom(
+                        textStyle: TextStyle(
+                            color: tabController.index == 0
+                                ? Colors.white
+                                : Colors.blue),
+                        backgroundColor: tabController.index == 0
+                            ? Colors.blue
+                            : Colors.transparent)),
+                TextButton(
                     child: Text('Projetos'),
-                    onPressed: () => {tabController.index = 2}),
+                    onPressed: () => {tabController.index = 1},
+                    style: TextButton.styleFrom(
+                        textStyle: TextStyle(
+                            color: tabController.index == 1
+                                ? Colors.white
+                                : Colors.blue),
+                        backgroundColor: tabController.index == 1
+                            ? Colors.blue
+                            : Colors.transparent)),
+                TextButton(
+                    child: Text('Certificados'),
+                    onPressed: () => {tabController.index = 2},
+                    style: TextButton.styleFrom(
+                        textStyle: TextStyle(
+                            color: tabController.index == 2
+                                ? Colors.white
+                                : Colors.blue),
+                        backgroundColor: tabController.index == 2
+                            ? Colors.blue
+                            : Colors.transparent)),
               ],
             ),
           ),
@@ -147,8 +199,8 @@ class _MainBodyState extends State<MainBody>
               controller: tabController,
               children: [
                 AboutMe(),
-                Skills(),
                 Projects(),
+                Certificates(),
               ],
             ),
           ),

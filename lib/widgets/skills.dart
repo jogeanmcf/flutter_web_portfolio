@@ -5,6 +5,6 @@ class Skills extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text('Skills'));
+    return Container(margin: EdgeInsets.all(30), child: Text('Skills'));
   }
 }
