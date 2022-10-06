@@ -1,6 +1,8 @@
 import 'dart:ui';
+import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_web_portfolio/widgets/certificates.dart';
 import 'package:unicons/unicons.dart';
@@ -28,9 +30,9 @@ class MainContent extends StatelessWidget {
           padding: EdgeInsets.only(top: 24),
           color: Colors.grey[200],
           width: 360,
-          child: LeftSideColumn(),
+          child: const LeftSideColumn(),
         ),
-        Expanded(child: MainBody())
+        const Expanded(child: MainBody())
       ],
     ));
   }
@@ -41,6 +43,7 @@ class LeftSideColumn extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  void copyData() {}
   @override
   Widget build(BuildContext context) {
     return SelectionArea(
@@ -77,48 +80,65 @@ class LeftSideColumn extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const Divider(),
-          const ListTile(
+          ListTile(
             leading: IconButton(icon: Icon(UniconsLine.at), onPressed: null),
             title: Text('jogeanmcf@gmail.com'),
-            trailing: Icon(Icons.copy),
+            trailing: InkWell(
+              child: Icon(Icons.copy),
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: 'jogeanmcf@gmail.com'))
+                    .then((value) =>
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Container(
+                              child: Text('Email copiado'),
+                            ))));
+              },
+            ),
           ),
-          const ListTile(
-              leading: Icon(UniconsLine.phone),
-              title: Text('+55 (61) 99325-4151'),
-              trailing: Icon(Icons.copy)),
+          ListTile(
+            leading: Icon(UniconsLine.phone),
+            title: Text('+55 (61) 99325-4151'),
+            trailing: InkWell(
+              child: Icon(Icons.copy),
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: '+55 (61) 99325-4151'))
+                    .then((value) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text('Telefone copiado')));
+                });
+              },
+            ),
+          ),
           SizedBox(height: 100),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SocialIcons(),
-              InkWell(child: Icon(UniconsLine.github)),
-              InkWell(child: Icon(UniconsLine.twitter))
+              IconButton(
+                  icon: Icon(
+                    UniconsLine.linkedin,
+                  ),
+                  hoverColor: Colors.blue,
+                  onPressed: () {
+                    html.window.open(
+                        "https://www.linkedin.com/in/jogeanmcf/", "_blank");
+                  }),
+              IconButton(
+                  icon: Icon(UniconsLine.github),
+                  hoverColor: Colors.blue,
+                  onPressed: () {
+                    html.window.open("https://github.com/jogeanmcf", "_blank");
+                  }),
+              IconButton(
+                  icon: Icon(UniconsLine.twitter),
+                  hoverColor: Colors.blue,
+                  onPressed: () {
+                    html.window.open("https://twitter.com/jogeanmcf", "_blank");
+                  })
             ],
           )
         ],
-      ),
-    );
-  }
-}
-
-class SocialIcons extends StatefulWidget {
-  const SocialIcons({super.key});
-
-  @override
-  State<SocialIcons> createState() => _SocialIconsState();
-}
-
-class _SocialIconsState extends State<SocialIcons> {
-  bool isHovered = false;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: InkWell(
-        child: Icon(
-          UniconsLine.linkedin,
-          color: isHovered ? Colors.blue : Colors.grey[600],
-        ),
-        onHover: (value) => {isHovered = value},
       ),
     );
   }
@@ -143,60 +163,86 @@ class _MainBodyState extends State<MainBody>
 
   @override
   Widget build(BuildContext context) {
-    print(tabController.index);
     return Scaffold(
       body: Column(
         children: [
           Container(
             height: 50,
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(color: Colors.grey, offset: Offset(0.1, 0.1))
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.grey, offset: Offset(0, 1), blurRadius: 100)
             ]),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                TextButton(
-                    child: Text('Sobre mim'),
-                    onPressed: () {
-                      tabController.index = 0;
-                      setState(() {});
-                    },
-                    style: TextButton.styleFrom(
-                        textStyle: TextStyle(
+                Expanded(
+                  child: TextButton(
+                      child: Text(
+                        'Sobre mim',
+                        style: TextStyle(
+                            // inherit: false,
                             color: tabController.index == 0
                                 ? Colors.white
                                 : Colors.blue),
-                        backgroundColor: tabController.index == 0
-                            ? Colors.blue
-                            : Colors.transparent)),
-                TextButton(
-                    child: Text('Projetos'),
-                    onPressed: () => {tabController.index = 1},
-                    style: TextButton.styleFrom(
-                        textStyle: TextStyle(
+                      ),
+                      onPressed: () {
+                        tabController.index = 0;
+                        setState(() {});
+                      },
+                      style: TextButton.styleFrom(
+                          minimumSize: Size(50, 80),
+                          backgroundColor: tabController.index == 0
+                              ? Colors.blue
+                              : Colors.transparent)),
+                ),
+                Expanded(
+                  child: TextButton(
+                      child: Text(
+                        'Projetos',
+                        style: TextStyle(
+                            // inherit: false,
                             color: tabController.index == 1
                                 ? Colors.white
                                 : Colors.blue),
-                        backgroundColor: tabController.index == 1
-                            ? Colors.blue
-                            : Colors.transparent)),
-                TextButton(
-                    child: Text('Certificados'),
-                    onPressed: () => {tabController.index = 2},
-                    style: TextButton.styleFrom(
-                        textStyle: TextStyle(
+                      ),
+                      onPressed: () {
+                        tabController.index = 1;
+                        setState(() {});
+                      },
+                      style: TextButton.styleFrom(
+                          minimumSize: Size(50, 80),
+                          backgroundColor: tabController.index == 1
+                              ? Colors.blue
+                              : Colors.transparent)),
+                ),
+                Expanded(
+                  child: TextButton(
+                      child: Text(
+                        'Certificados',
+                        style: TextStyle(
+                            // inherit: false,
                             color: tabController.index == 2
                                 ? Colors.white
                                 : Colors.blue),
-                        backgroundColor: tabController.index == 2
-                            ? Colors.blue
-                            : Colors.transparent)),
+                      ),
+                      onPressed: () {
+                        tabController.index = 2;
+                        setState(() {});
+                      },
+                      style: TextButton.styleFrom(
+                          minimumSize: Size(50, 80),
+                          backgroundColor: tabController.index == 2
+                              ? Colors.blue
+                              : Colors.transparent)),
+                ),
               ],
             ),
           ),
           Expanded(
             child: TabBarView(
               controller: tabController,
+              // physics: ScrollAction(),
               children: [
                 AboutMe(),
                 Projects(),

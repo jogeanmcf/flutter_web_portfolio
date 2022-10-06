@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_web_portfolio/widgets/projects.dart';
 
 class AboutMe extends StatelessWidget {
@@ -48,9 +49,10 @@ class ImageGallery extends StatefulWidget {
 
 class _ImageGalleryState extends State<ImageGallery> {
   final List<String> images = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTIZccfNPnqalhrWev-Xo7uBhkor57_rKbkw&usqp=CAU",
-    "https://wallpaperaccess.com/full/2637581.jpg",
-    "https://uhdwallpapers.org/uploads/converted/20/01/14/the-mandalorian-5k-1920x1080_477555-mm-90.jpg"
+    "fig-0.JPG",
+    "fig-1.jpg",
+    "fig-2.jpg"
+    // "/assets/fig-1.jpg"
   ];
   int currentPage = 0;
   int _count = 0;
@@ -83,7 +85,6 @@ class _ImageGalleryState extends State<ImageGallery> {
 
   @override
   Widget build(BuildContext context) {
-    print('build has been called');
     return Container(
       margin: EdgeInsets.only(top: 30),
       width: 500,
@@ -98,15 +99,24 @@ class _ImageGalleryState extends State<ImageGallery> {
               currentPage = _count % images.length;
             });
           },
+          clipBehavior: Clip.antiAlias,
           itemBuilder: (context, pagePosition) {
             return Container(
               width: 300,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              margin: EdgeInsets.only(left: 10),
-              child: Image.network(
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(left: 10),
+              // decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(10),
+              //     boxShadow: [
+              //       BoxShadow(
+              //           blurRadius: 1,
+              //           spreadRadius: 1,
+              //           color: Colors.grey.withOpacity(0.8),
+              //           offset: Offset(-5, -5))
+              //     ]),
+              child: Image.asset(
                 images[pagePosition],
-                fit: BoxFit.fill,
+                fit: BoxFit.fitWidth,
               ),
             );
           }),
