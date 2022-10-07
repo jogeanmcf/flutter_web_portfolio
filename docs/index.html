@@ -14,11 +14,8 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <!-- <base href="/"> -->
-  
-  
-  <base href="https://jogeanmcf.github.io/flutter_web_portfolio/">
-   <!-- <base href="/"> -->
+  <base href="/">
+
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
@@ -34,31 +31,40 @@
 
   <title>Jogean</title>
   <link rel="manifest" href="manifest.json">
-
+  <link rel="stylesheet" href="style.css">
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = '1444245950';
+    var serviceWorkerVersion = '2829111721';
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  <div id="loading">
+    <h3>Carregando</h3>
+    <span>
+      <h3 class="dot dot1">.</h3>
+      <h3 class="dot dot2">.</h3>
+      <h3 class="dot dot3">.</h3>
+    </span>
+  </div>
   <script>
     window.addEventListener('load', function(ev) {
            var loading = document.querySelector('#loading');
-           loading.textContent = "Loading entrypoint...";
+          //  loading.textContent = "Loading entrypoint...";
            _flutter.loader.loadEntrypoint({
              serviceWorker: {
                serviceWorkerVersion: serviceWorkerVersion,
              }
            }).then(function(engineInitializer) {
              loading.textContent = "Initializing engine...";
-             return engineInitializer.initializeEngine();
+             return engineInitializer.autoStart();
            }).then(function(appRunner) {
-             loading.textContent = "Running app...";
+             loading.textContent = "";
              return appRunner.runApp();
            });
          });
+
     // window.addEventListener('load', function(ev) {
     //   // Download main.dart.js
     //   _flutter.loader.loadEntrypoint({
