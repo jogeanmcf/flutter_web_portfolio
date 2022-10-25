@@ -57,7 +57,7 @@
                serviceWorkerVersion: serviceWorkerVersion,
              }
            }).then(function(engineInitializer) {
-             loading.textContent = "Initializing engine...";
+            //  loading.textContent = "Initializing engine...";
              return engineInitializer.autoStart();
            }).then(function(appRunner) {
              loading.textContent = "";

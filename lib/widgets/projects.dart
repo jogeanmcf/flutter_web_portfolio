@@ -5,37 +5,35 @@ class Projects extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(30),
-      child: ListView(
-        children: const [
-          h2('Projetos front/back end'),
-          CustomListTile(title: 'Tetris Game', subtitle: '''
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        h2('Projetos front/back end'),
+        CustomListTile(title: 'Tetris Game', subtitle: '''
 Desenvolvi o jogo Tetris no framework flutter, com uma interfase moderda, responsivo e opções de light/dark mode.
 '''),
-          CustomListTile(title: 'RXiv', subtitle: '''
+        CustomListTile(title: 'RXiv', subtitle: '''
 A plataforma arxiv é um repositório de artigos pre-print. Desenvolvi uma aplicação mobile que consome uma API externa e permite buscas no repositório.
 '''),
-          CustomListTile(title: 'YT Muic Clone', subtitle: '''
+        CustomListTile(title: 'YT Muic Clone', subtitle: '''
 Reproduzi a UI do youtube music usando Flutter e consumindo a api do youtube usando back-end em python.
 '''),
-          CustomListTile(title: 'Feedback Widget', subtitle: '''
+        CustomListTile(title: 'Feedback Widget', subtitle: '''
 Projeto de um dos cursos da Rocketseat. A proposta é um widget feito em React que serve como ferramenta de feedback.
 '''),
-          CustomListTile(title: 'Hamburger Website', subtitle: '''
+        CustomListTile(title: 'Hamburger Website', subtitle: '''
 Um protótipo de e-comerce voltado ao mercado de hamburgerias, com todas as funcionalidades de navegaçaõ, login, compra.
 '''),
-          h2('Artigos e Livros Publicados'),
-          CustomListTile(
-              title:
-                  'Gauge Miura and Bäcklund transformations for generalized An-KdV hierarchies',
-              subtitle: ''),
-          CustomListTile(
-              title:
-                  'Generalized Backlund transformations for Affine Toda Hierarchies',
-              subtitle: '')
-        ],
-      ),
+        h2('Artigos e Livros Publicados'),
+        CustomListTile(
+            title:
+                'Gauge Miura and Bäcklund transformations for generalized An-KdV hierarchies',
+            subtitle: ''),
+        CustomListTile(
+            title:
+                'Generalized Backlund transformations for Affine Toda Hierarchies',
+            subtitle: '')
+      ],
     );
   }
 }

@@ -9,31 +9,27 @@ class AboutMe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-          padding: EdgeInsets.all(30),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              h2('Sobre mim'),
-              Text('''
-Eu sou Físico, Cientista de Dados, Programador Front-End. Minha formação é em física, onde concluí meu doutorado. Apesar do background 
- acadêmico tenho experiência com programação em liguagens como Python, JavaScript, Dart. Sou uma pessoa focada, auto-didata e analítica.
-            '''
-                  .replaceAll('\n', '')),
-              h2('Hobbies'),
-              ListTile(leading: Text('・'), title: Text('Violão')),
-              ListTile(leading: Text('・'), title: Text('Violino')),
-              ListTile(
-                  leading: Text('・'),
-                  title: Text('Leituras: não ficção, ficção científica')),
-              ListTile(leading: Text('・'), title: Text('DIY')),
-              h2(''),
-              Center(child: ImageGallery())
-            ],
-          )),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        h2('Sobre mim'),
+        Text('''
+Eu sou Físico, Cientista de Dados, programador Front-End. Nos últimos anos dediquei em aprender as principais linguagens de programação. Apesar de eu ter um background mais acadêmico, minhas habilidades como pensamento analítico,
+solução de problemas, raciocínio lógico matemático, pode ser bem empregado em áreas correlatas. Sou uma pessoa comunicativa, socializável e expressiva e com uma vontade insaciável de aprender. Uma palavra que me define é Curiosidade.
+      '''
+            .replaceAll('\n', '')),
+        h2('Hobbies'),
+        ListTile(leading: Text('・'), title: Text('Violão')),
+        ListTile(leading: Text('・'), title: Text('Violino')),
+        ListTile(
+            leading: Text('・'),
+            title: Text('Leituras: não ficção, ficção científica')),
+        ListTile(leading: Text('・'), title: Text('DIY')),
+        h2(''),
+        // Center(child: ImageGallery())
+      ],
     );
   }
 }
